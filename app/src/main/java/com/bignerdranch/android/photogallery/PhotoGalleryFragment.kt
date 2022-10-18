@@ -50,15 +50,35 @@ class PhotoGalleryFragment : Fragment() {
         photoGalleryViewModel.galleryItemLiveData.observe(
             viewLifecycleOwner,
             Observer {galleryItems ->
-                Log.d(TAG, "Have gallery items from ViewModel $galleryItems")
-                //eventually, update data backing the recycler view
+                photoRecyclerView.adapter = PhotoAdapter(galleryItems)
             })
     }
 
+    //ViewHolder
     private class PhotoHolder(itemTextView: TextView)
         : RecyclerView.ViewHolder(itemTextView) {
 
         val bindTitle: (CharSequence) -> Unit = itemTextView::setText
+    }
+
+    //RecyclerView Adapter
+    private class PhotoAdapter(private val galleryItems: List<GalleryItem>)
+        : RecyclerView.Adapter<PhotoHolder>() {
+
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): PhotoHolder {
+            val textView = TextView(parent.context)
+            return PhotoHolder(textView)
+        }
+
+        override fun getItemCount(): Int = galleryItems.size
+
+        override fun onBindViewHolder(holder: PhotoHolder, position: Int) {
+            val galleryItem = galleryItems[position]
+            holder.bindTitle(galleryItem.title)
+        }
     }
 
     companion object {
