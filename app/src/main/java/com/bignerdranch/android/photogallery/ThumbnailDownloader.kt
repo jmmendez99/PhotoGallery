@@ -39,5 +39,8 @@ class ThumbnailDownloader<in T>
 
     fun queueThumbnail(target: T, url: String) {
         Log.i(TAG,"Got a URL: $url")
+        requestMap[target] = url
+        requestHandler.obtainMessage(MESSAGE_DOWNLOAD, target)
+            .sendToTarget()
     }
 }
