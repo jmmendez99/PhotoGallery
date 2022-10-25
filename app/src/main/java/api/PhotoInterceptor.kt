@@ -5,7 +5,6 @@ import okhttp3.Interceptor
 import okhttp3.Request
 import okhttp3.Response
 
-
 private const val API_KEY = "bf58752a7c10fa7d24af228022fb9208"
 
 class PhotoInterceptor : Interceptor {
@@ -19,6 +18,7 @@ class PhotoInterceptor : Interceptor {
             .addQueryParameter("nojsoncallback", "1")
             .addQueryParameter("extras", "url_s")
             .addQueryParameter("safesearch", "1")
+            .build()
 
         val newRequest: Request = originalRequest.newBuilder()
             .url(newUrl)
