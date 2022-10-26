@@ -11,7 +11,23 @@ class PollWorker(val context: Context, workerParams: WorkerParameters)
     : Worker(context, workerParams) {
 
     override fun doWork(): Result {
-        Log.i(TAG, "Work request triggered")
+        //we can reference QueryPreferences like this because
+        //it is a singleton.
+        val query = QueryPreferences.getStoredQuery(context)
+        val lastResultID = QueryPreferences.getLastResultId(context)
+        val items: List<GalleryItem> = if (query.isEmpty()) {
+            FlickrFetchr().fetchPhotosRequest()
+                .execute()
+                .body()
+                ?.photos
+                ?.galleryItems
+        } else {
+            FlickrFetchr().searchPhotosRequest(query)
+                .execute()
+                .body()
+                ?.photos
+                ?.galleryItems
+        } ?: emptyList()
         return Result.success()
     }
 }
