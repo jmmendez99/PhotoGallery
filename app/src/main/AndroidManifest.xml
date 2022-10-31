@@ -30,7 +30,8 @@
             </intent-filter>
         </activity>
         <receiver android:name=".NotificationReceiver"
-            android:exported="true">
+            android:permission="com.bignerdranch.android.photogallery.PRIVATE"
+            android:exported="false">
             <intent-filter>
                 <action
                     android:name="com.bignerdranch.android.photogallery.SHOW_NOTIFICATION" />
