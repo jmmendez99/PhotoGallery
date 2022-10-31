@@ -122,7 +122,7 @@ class PhotoGalleryFragment : Fragment() {
             val toggleItemTitle = if (isPolling) {
                 R.string.stop_polling
             } else {
-                R.string.stop_polling
+                R.string.start_polling
             }
             toggleItem.setTitle(toggleItemTitle)
 
