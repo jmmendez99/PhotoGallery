@@ -53,16 +53,6 @@ class PhotoGalleryFragment : Fragment() {
 
         lifecycle.addObserver(thumbnailDownloader.fragmentLifecycleObserver)
 
-        //Scheduling a WorkRequest
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.UNMETERED)
-            .build()
-        val workRequest = OneTimeWorkRequest
-            .Builder(PollWorker::class.java)
-            .setConstraints(constraints)
-            .build()
-        WorkManager.getInstance()
-            .enqueue(workRequest)
     }
 
     override fun onCreateView(
@@ -126,6 +116,17 @@ class PhotoGalleryFragment : Fragment() {
                     return false
                 }
             })
+
+            //Setting correct menu item text
+            val toggleItem = menu.findItem(R.id.menu_item_toggle_polling)
+            val isPolling = QueryPreferences.isPolling(requireContext())
+            val toggleItemTitle = if (isPolling) {
+                R.string.stop_polling
+            } else {
+                R.string.stop_polling
+            }
+            toggleItem.setTitle(toggleItemTitle)
+
 
             setOnSearchClickListener {
                 searchView.setQuery(photoGalleryViewModel.searchTerm, false)
