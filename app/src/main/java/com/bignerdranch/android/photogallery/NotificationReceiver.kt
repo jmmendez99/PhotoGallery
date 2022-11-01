@@ -21,7 +21,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
         val requestCode = intent.getIntExtra(PollWorker.REQUEST_CODE, 0)
         val notification: Notification =
-            intent.getParcelableExtra(PollWorker.NOTIFICATION)
+            intent.getParcelableExtra(PollWorker.NOTIFICATION)!!
 
         val notificationManager = NotificationManagerCompat.from(context)
         notificationManager.notify(requestCode, notification)
