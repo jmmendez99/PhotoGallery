@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.webkit.WebView
 
 private const val ARG_URI = "photo_page_url"
+
 class PhotoPageFragment : VisibleFragment() {
 
     private lateinit var uri: Uri
@@ -32,7 +33,7 @@ class PhotoPageFragment : VisibleFragment() {
     }
 
     companion object {
-        fun newInstance(uri: Uri): PhotoPageFragment {
+        fun newInstance(uri: Uri?): PhotoPageFragment {
             return PhotoPageFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(ARG_URI, uri)
